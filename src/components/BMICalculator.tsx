@@ -1,6 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button, ScrollView} from 'react-native';
-import styles from '../styles/style';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import styles from '../styles/style'; // Güncellenmiş stilleri içe aktarıyoruz
 
 const BMICalculator = () => {
   const [weight, setWeight] = useState('');
@@ -10,9 +16,7 @@ const BMICalculator = () => {
 
   const calculateBMI = () => {
     const weightNum = parseFloat(weight.trim());
-    const heightNum = parseFloat(height.trim()) / 100; // Convert height to meters
-
-    console.log(`Weight: ${weightNum}, Height: ${heightNum}`);
+    const heightNum = parseFloat(height.trim()) / 100;
 
     if (isNaN(weightNum) || isNaN(heightNum)) {
       setError('Invalid input: weight or height is not a number');
@@ -55,21 +59,37 @@ const BMICalculator = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>BMI Calculator</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Weight (kg)"
-        keyboardType="numeric"
-        value={weight}
-        onChangeText={setWeight}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Height (cm)"
-        keyboardType="numeric"
-        value={height}
-        onChangeText={setHeight}
-      />
-      <Button title="Calculate BMI" onPress={calculateBMI} />
+
+      <View style={styles.inputbox}>
+        <TextInput
+          style={styles.input}
+          placeholder="Weight (kg)"
+          placeholderTextColor="white"
+          keyboardType="numeric"
+          value={weight}
+          onChangeText={setWeight}
+        />
+        <View style={styles.underline} />
+      </View>
+
+      <View style={styles.inputbox}>
+        <TextInput
+          style={styles.input}
+          placeholder="Height (cm)"
+          placeholderTextColor="white"
+          keyboardType="numeric"
+          value={height}
+          onChangeText={setHeight}
+        />
+        <View style={styles.underline} />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.calculateButton} onPress={calculateBMI}>
+          <Text style={styles.calculateButtonText}>Calculate BMI</Text>
+        </TouchableOpacity>
+      </View>
+
       {bmi !== null && (
         <>
           <Text style={styles.result}>Your BMI is: {bmi.toFixed(2)}</Text>

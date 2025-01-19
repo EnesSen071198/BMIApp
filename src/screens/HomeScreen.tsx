@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../types';
 import styles from '../styles/style';
@@ -14,10 +14,11 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to BMI Calculator</Text>
-      <Button
-        title="Go to BMI Calculator"
-        onPress={() => navigation.navigate('BMICalculator')}
-      />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('BMICalculator')}>
+        <Text style={styles.buttonText}>Go to BMI Calculator</Text>
+      </TouchableOpacity>
     </View>
   );
 };
